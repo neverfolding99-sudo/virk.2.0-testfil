@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log på med MitID</title>
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body { font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif; background-color: #f5f5f5; color: #1a1a1a; font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; }
+  .top-header { background: #fff; border-bottom: 1px solid #e8e8e8; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .top-header-inner { max-width: 1140px; margin: 0 auto; padding: 0 15px; display: flex; align-items: center; height: 76px; gap: 24px; }
+  .top-logo { display: flex; align-items: center; }
+  .top-logo img { height: 40px; width: auto; }
+  .top-nav { display: flex; align-items: center; gap: 24px; flex: 1; }
+  .top-nav .sep { width: 1px; height: 26px; background: #bfbfbf; }
+  .top-nav a { color: #1a1a1a; font-size: 15px; font-weight: 400; white-space: nowrap; }
+  .top-nav a:hover { color: #004993; text-decoration: underline; }
+  .top-right { display: flex; align-items: center; gap: 16px; }
+  .btn-login { display: inline-flex; align-items: center; gap: 8px; background: #0059b3; color: #fff !important; padding: 10px 20px; border-radius: 4px; font-size: 15px; font-weight: 500; cursor: pointer; border: none; }
+  .btn-login:hover { background: #004993; }
+  .main-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; margin-top: 76px; }
+  .login-card { background: #fff; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 544px; padding: 32px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .login-header { text-align: center; margin-bottom: 24px; }
+  .mitid-logo-svg { height: 64px; width: auto; display: block; margin: 0 auto 16px; }
+  .login-title { font-size: 22px; font-weight: 600; color: #003972; margin-bottom: 8px; }
+  .login-subtitle { font-size: 14px; color: #454545; }
+  .field-group { margin-bottom: 16px; }
+  .field-label { display: block; font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 8px; }
+  .input-wrapper { position: relative; display: flex; align-items: center; }
+  .input-field { width: 100%; height: 40px; border: 1px solid #747474; border-radius: 4px; padding: 0 56px 0 10px; font-size: 16px; font-family: inherit; color: #1a1a1a; outline: none; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; }
+  .input-field:focus { border-color: #0059b3; box-shadow: 0 0 0 4px rgba(0,89,179,0.18); }
+  .input-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #0060E6; cursor: pointer; background: none; border: none; font-weight: 600; font-family: inherit; }
+  .input-toggle:hover { text
